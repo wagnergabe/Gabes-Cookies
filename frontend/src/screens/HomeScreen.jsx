@@ -10,7 +10,7 @@ function HomeScreen() {
     <Row>
         {cookies.map((cookie) => {
             return (
-            <Col sm={12} md={6} lg={4} xl ={3}>
+            <Col key={cookie._id} sm={12} md={6} lg={4} xl ={3}>
                 <Cookies cookie = {cookie} />
                 </Col>
             );

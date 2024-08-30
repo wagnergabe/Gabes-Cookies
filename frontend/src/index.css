@@ -1,0 +1,19 @@
+main {
+    min-height: 80vh;
+  }
+
+  .card-img {
+    height: 200px;
+    object-fit: cover; 
+  }
+  
+  .card {
+    height: 100%; 
+  }
+
+.cookie-title {
+    height: 2.5em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

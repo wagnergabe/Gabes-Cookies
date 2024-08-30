@@ -5,6 +5,8 @@ const cookies = [
         image: '../public/images/chocoChip.jpg',
         description: "A chocolate chip cookie",
         price: 20,
+        rating: 4.0,
+        numReviews: 20,
     },
     {
         _id: 2,
@@ -12,6 +14,8 @@ const cookies = [
         image: '../public/images/vanillaChai.webp',
         description: "Vanilla chai cookie",
         price: 25,
+        rating: 5.0,
+        numReviews: 10,
     },
     {
         _id: 3,
@@ -19,6 +23,8 @@ const cookies = [
         image: '../public/images/matcha.webp',
         description: "Green tea matcha dusted cookie",
         price: 25,
+        rating: 3.0,
+        numReviews: 3,
     },
 ]
 
