@@ -1,0 +1,19 @@
+{
+  "name": "cookies",
+  "version": "1.0.0",
+  "description": "Cookie Mern app",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "wagnergabe"
+  },
+  "author": "Gabriel Wagner",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

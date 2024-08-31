@@ -1,6 +1,7 @@
 main {
     min-height: 80vh;
-  }
+    background-color: #FFE8A1;
+}
 
   .card-img {
     height: 200px;
@@ -17,3 +18,20 @@ main {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+.cookie-image {
+    width: 100%; /* Adjust width as needed */
+    height: 300px; /* Set a fixed height */
+    object-fit: cover; /* Ensure the image covers the area without distortion */
+    border-radius: 8px; /* Optional: to match your rounded class */
+  }
+
+  nav {
+    background-color: #D2A679;
+  }
+
+  .nav-link {
+    color: #FFF5E1;
+  }
+
+  

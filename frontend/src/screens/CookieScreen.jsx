@@ -15,9 +15,9 @@ const CookieScreen = () => {
     <Link className = "btn btn-light my-3" to="/">Back</Link>
     <Row>
 
-        <Col md= {6}>
-        <Image src={cookie.image} alt={cookie.name} className="img-fluid rounded" />
-        </Col>
+    <Col md={6}>
+  <Image src={cookie.image} alt={cookie.name} className="cookie-image" />
+</Col>
         <Col md={4}>
         <ListGroup variant="flush">
             <ListGroup.Item>
