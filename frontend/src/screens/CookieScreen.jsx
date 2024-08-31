@@ -1,14 +1,26 @@
+import {useState, useEffect } from 'react';
 import  { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import {Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap';
 import Rating from '../components/Rating.jsx';
-import cookies from '../cookies';
+import axios from 'axios';
 
 const CookieScreen = () => {
+
+    const [cookie, setCookie] = useState([]);
+
     const { id: cookieId } = useParams();
     
+    useEffect(() => {
+      const fetchCookie =  async () => {
+        const { data } = await axios.get(`http://localhost:5000/api/cookies/${cookieId}`);
+        setCookie(data);
+      }
+
+      fetchCookie();
+    }, [cookieId])
     
-    const cookie = cookies.find((c) => c._id == cookieId);
+  
 
   return (
     <>
