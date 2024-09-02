@@ -2,8 +2,10 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 dotenv.config();
-
+import connectDB from './config/db.js';
 import cookies from './data/cookies.js';
+
+connectDB(); // Connect to mongoose
 
 const app = express();
 app.use(cors());
