@@ -3,7 +3,9 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 dotenv.config();
 import connectDB from './config/db.js';
-import cookies from './data/cookies.js';
+import { notFound, errorHandler } from './middleware/errorMiddleware.js'
+
+import cookieRoutes from './routes/cookieRoutes.js';
 
 connectDB(); // Connect to mongoose
 
@@ -17,15 +19,10 @@ app.get("/", (req,  res) => {
     res.send("API is running...");
 });
 
-app.get('/api/cookies', (req, res) => {
-    res.json(cookies);
-});
-
-app.get('/api/cookies/:id', (req, res) => {
-    const cookie = cookies.find((c) => c._id == req.params.id);
-    res.json(cookie);
-})
+app.use('/api/cookies', cookieRoutes)
 
 
+app.use(notFound);
+app.use(errorHandler)
 
 app.listen(port, () => console.log(`Server is running on port ${port}`));

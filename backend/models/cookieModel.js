@@ -20,7 +20,7 @@ const reviewSchema = mongoose.Schema({
     },
 }, 
 {
-    timestamps: true;
+    timestamps: true,
 });
 
 const cookieSchema = new mongoose.Schema({
