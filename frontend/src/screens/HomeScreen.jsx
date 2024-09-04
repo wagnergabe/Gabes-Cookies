@@ -1,29 +1,19 @@
-import { useState, useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import Cookies from '../components/Cookies';
-import axios from 'axios';
+import { useGetCookiesQuery } from '../../slices/cookiesApiSlice.js'
+import Loader  from '../components/Loader.jsx';
+import Message from '../components/Message.jsx'
+
 
 // import cookies from '../cookies';
 
 
 function HomeScreen() {
-  const [cookies, setCookies] = useState([]);
+  const { data: cookies, isLoading, error } = useGetCookiesQuery();
 
-  useEffect(() => {
-    const fetchCookies = async () => {
-      try {
-        const { data } = await axios.get('http://localhost:5000/api/cookies'); 
-        setCookies(data);
-      } catch (error) {
-        console.error('Error fetching cookies:', error);
-      }
-    };
-
-    fetchCookies();
-  }, []);
   return (
     <>
-    <h1>Cookies</h1>
+    { isLoading ? <Loader />: error ? (<Message variant="danger">{error?.data?.message || error.error}</Message>) : (<><h1>Cookies</h1>
     <Row>
         {cookies.map((cookie) => {
             return (
@@ -32,7 +22,8 @@ function HomeScreen() {
                 </Col>
             );
         })}
-    </Row>
+    </Row></>)} 
+    
     </>
   );
 }

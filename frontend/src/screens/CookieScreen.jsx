@@ -3,30 +3,21 @@ import  { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import {Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap';
 import Rating from '../components/Rating.jsx';
-import axios from 'axios';
+import { useGetCookieDetailsQuery } from '../../slices/cookiesApiSlice.js';
+import Loader from '../components/Loader'
+import Message from '../components/Message'
 
 const CookieScreen = () => {
-
-    const [cookie, setCookie] = useState([]);
-
     const { id: cookieId } = useParams();
-    
-    useEffect(() => {
-      const fetchCookie =  async () => {
-        const { data } = await axios.get(`http://localhost:5000/api/cookies/${cookieId}`);
-        setCookie(data);
-      }
 
-      fetchCookie();
-    }, [cookieId])
-    
+    const { data: cookie, isLoading, error } = useGetCookieDetailsQuery(cookieId);
   
-
   return (
     <>
     <Link className = "btn btn-light my-3" to="/">Back</Link>
-    <Row>
 
+    
+    { isLoading ? <Loader /> : error ? (<Message variant="danger">{error?.data?.message || error.error}</Message>) : (<Row>
     <Col md={6}>
   <Image src={cookie.image} alt={cookie.name} className="cookie-image" />
 </Col>
@@ -60,7 +51,9 @@ const CookieScreen = () => {
                 </ListGroup>
         </Card>
         </Col>
-    </Row>
+    </Row>)}
+
+    
     </>
   )
 }
