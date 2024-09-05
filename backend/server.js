@@ -6,10 +6,16 @@ import connectDB from './config/db.js';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 
 import cookieRoutes from './routes/cookieRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 
 connectDB(); // Connect to mongoose
 
 const app = express();
+
+//Body parder middleware
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
 app.use(cors());
 
 
@@ -20,6 +26,7 @@ app.get("/", (req,  res) => {
 });
 
 app.use('/api/cookies', cookieRoutes)
+app.use('/api/users', userRoutes)
 
 
 app.use(notFound);
