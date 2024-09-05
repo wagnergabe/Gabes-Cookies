@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { Provider }  from 'react-redux';
 import HomeScreen from './screens/HomeScreen';
 import CookieScreen from './screens/CookieScreen';
+import CartScreen from './screens/CartScreen';
 import store from './store';
 import { 
   createBrowserRouter,
@@ -19,6 +20,7 @@ const router = createBrowserRouter(
     <Route path="/" element={<App />}>
       <Route index={true} path="/" element={<HomeScreen />} />
       <Route path="/cookie/:id" element={<CookieScreen />} />
+      <Route path="/cart" element={<CartScreen />} />
     </Route>
   )
 )

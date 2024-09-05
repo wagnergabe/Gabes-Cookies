@@ -1,16 +1,32 @@
 import {useState, useEffect } from 'react';
-import  { useParams } from 'react-router-dom';
+import  { useParams, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import {Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
 import Rating from '../components/Rating.jsx';
 import { useGetCookieDetailsQuery } from '../../slices/cookiesApiSlice.js';
 import Loader from '../components/Loader'
 import Message from '../components/Message'
+import { addToCart } from '../../slices/cartSlice'
 
 const CookieScreen = () => {
     const { id: cookieId } = useParams();
 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const [qty, setQty] = useState(1)
+
     const { data: cookie, isLoading, error } = useGetCookieDetailsQuery(cookieId);
+
+    const addToCartHandler = () => {
+      if (cookie && cookie._id) {  
+          dispatch(addToCart({ ...cookie, qty }));
+          navigate('/cart');
+      } else {
+          console.error('Failed to add cookie to cart: Invalid cookie data');
+      }
+  }
   
   return (
     <>
@@ -45,7 +61,7 @@ const CookieScreen = () => {
                 </Row>
               </ListGroup.Item>
                 <ListGroup.Item>
-                    <button className="btn-block" type="button" >Order</button>
+                    <button className="btn-block" type="button" onClick = {addToCartHandler} >Order</button>
                 </ListGroup.Item>
 
                 </ListGroup>
