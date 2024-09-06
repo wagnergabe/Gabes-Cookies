@@ -27,7 +27,7 @@ export default function CartScreen() {
   return (
     <Row>
         <Col md={8}>
-            <h1 stle = {{marginBottom: '20px'}}>Shopping Cart</h1>
+            <h1 style = {{marginBottom: '20px'}}>Shopping Cart</h1>
             { cartItems.length === 0 ? (
                 <Message>
                     Your cart is empty. <Link to='/'>Go Get some Cookies!</Link>
@@ -37,8 +37,8 @@ export default function CartScreen() {
                     { cartItems.map((item) => (
                         <ListGroup.Item key={ item._id }>
                             <Row>
-                                <Col md={2}>
-                                    <Image src={item.image} alt={item.name} fluid rounded/>
+                                <Col md={5} sm={1}>
+                                    <Image src={item.image} alt={item.name}  style={{ width: '100px', height: '100px', objectFit: 'cover' }} fluid rounded/>
                                 </Col>
                                 <Col md={3}>
                                 <Link to={`/cookie/${item._id}`}>{ item.name}</Link>
