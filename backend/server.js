@@ -8,6 +8,7 @@ import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 
 import cookieRoutes from './routes/cookieRoutes.js';
 import userRoutes from './routes/userRoutes.js';
+import orderRoutes from './routes/orderRoutes.js';
 
 connectDB(); // Connect to mongoose
 
@@ -30,6 +31,7 @@ app.get("/", (req,  res) => {
 
 app.use('/api/cookies', cookieRoutes)
 app.use('/api/users', userRoutes)
+app.use('/api/orders', orderRoutes)
 
 
 app.use(notFound);
