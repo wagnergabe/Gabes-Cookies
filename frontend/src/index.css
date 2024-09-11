@@ -14,33 +14,51 @@ main {
 
   .card-img {
     height: 200px;
-    object-fit: cover; 
+    object-fit: cover;
+    width: 100%; 
   }
   
   .card {
     height: 100%; 
   }
 
-.cookie-title {
-    height: 2.5em;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
+  .list-group-item {
+    background-color: #D2A679;
+    color: #FFF5E1;
+  }
 
-.cookie-image {
-    width: 100%; /* Adjust width as needed */
-    height: 300px; /* Set a fixed height */
+  .card-custom {
+    width: 300px; 
+    height: 400px; 
+  }
+  
+  .card-custom img {
+    height: 200px;
     object-fit: cover; 
-    border-radius: 8px; 
   }
 
   nav {
     background-color: #D2A679;
+
   }
 
   .nav-link {
     color: #FFF5E1;
   }
 
+  .rating {
+    margin: 0 6px;
+    
+  }
+
+  .rating-text {
+    margin: 5px;
+    font-style: italic;
+  }
   
+  .card-image {
+    height: 200px;
+    width: 200px;
+    border-radius: 5px;
+    background-color: white;
+  }

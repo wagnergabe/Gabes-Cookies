@@ -1,31 +1,20 @@
-import { Row, Col } from 'react-bootstrap';
-import Cookies from '../components/Cookies';
-import { useGetCookiesQuery } from '../../slices/cookiesApiSlice.js'
-import Loader  from '../components/Loader.jsx';
-import Message from '../components/Message.jsx'
+import { Row, Col } from "react-bootstrap";
+import Cookie from '../components/Cookie.jsx';
+import cookies from '../cookies.js'
 
-
-// import cookies from '../cookies';
-
-
-function HomeScreen() {
-  const { data: cookies, isLoading, error } = useGetCookiesQuery();
-
+const HomeScreen = () => {
   return (
     <>
-    { isLoading ? <Loader />: error ? (<Message variant="danger">{error?.data?.message || error.error}</Message>) : (<><h1>Cookies</h1>
-    <Row>
-        {cookies.map((cookie) => {
-            return (
-            <Col key={cookie._id} sm={12} md={6} lg={4} xl ={3}>
-                <Cookies cookie = {cookie} />
-                </Col>
-            );
-        })}
-    </Row></>)} 
-    
+        <h1>Fresh Cookies</h1>
+        <Row>
+            {cookies.map((cookie) => (
+            <Col key={cookie._id} sm={12} md={6} lg={4} xl={3}>
+                <Cookie cookie={cookie} />
+            </Col>
+            ))}
+        </Row>
     </>
-  );
+  )
 }
 
-export default HomeScreen;
+export default HomeScreen
