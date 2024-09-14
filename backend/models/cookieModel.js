@@ -1,14 +1,14 @@
 import mongoose from 'mongoose';
 
-const reviewSchema = mongoose.Schema({
+const reviewSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: "User", 
+        ref: 'User',
     },
     name: {
         type: String,
-        required: true
+        required: true,
     },
     rating: {
         type: Number,
@@ -18,8 +18,7 @@ const reviewSchema = mongoose.Schema({
         type: String,
         required: true
     },
-}, 
-{
+}, {
     timestamps: true,
 });
 
@@ -27,9 +26,19 @@ const cookieSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: "User", 
+        ref: 'User'
     },
+
     name: {
+        type: String,
+        required: 'Please add a name'
+    },
+    price: {
+        type: Number,
+        required:  true,
+        default: 0
+    },
+    description: {
         type: String,
         required: true,
     },
@@ -37,29 +46,26 @@ const cookieSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    description: {
-        type: String,
-        required: true,
-    },
     reviews: [reviewSchema],
     rating: {
-    type: Number,
-    required: true,
-    default: 0,
+        type: Number,
+        required: true,
+        default: 0
     },
     numReviews: {
         type: Number,
         required: true,
-        default: 0,
+        default: 0
     },
-    price: {
+    countInStock: {
         type: Number,
         required: true,
-        default: 0,
+        default: 0
     },
 }, {
-    timestamps: true
-})
+    timestamps: true,
+});
 
-const Cookie = mongoose.model("Cookie", cookieSchema);
+const Cookie = mongoose.model('Cookie', cookieSchema);
+
 export default Cookie;

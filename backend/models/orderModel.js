@@ -1,10 +1,10 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const orderSchema = mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: "User", 
+        ref: 'User',
     },
     orderItems: [
         {
@@ -15,9 +15,9 @@ const orderSchema = mongoose.Schema({
             cookie: {
                 type: mongoose.Schema.Types.ObjectId,
                 required: true,
-                ref: "Cookie",
+                ref: 'Cookie',
             },
-        }
+        },
     ],
     shippingAddress: {
         address: { type: String, required: true },
@@ -27,12 +27,12 @@ const orderSchema = mongoose.Schema({
     },
     paymentMethod: {
         type: String,
-        required: true
+        required: true,
     },
     paymentResult: {
         id: { type: String },
-        stauts: { type: String },
-        udate_time: { type: String },
+        status: { type: String },
+        update_time: { type: String },
         email_address: { type: String },
     },
     itemsPrice: {
@@ -70,11 +70,11 @@ const orderSchema = mongoose.Schema({
     },
     deliveredAt: {
         type: Date,
-    },
+    }, 
 }, {
     timestamps: true,
 });
 
-const Order = mongoose.model("Order", orderSchema);
+const Order = mongoose.model('Order', orderSchema);
 
 export default Order;
