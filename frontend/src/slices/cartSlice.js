@@ -13,28 +13,31 @@ const cartSlice = createSlice({
     reducers: {
         addToCart: (state, action) => {
             const item = action.payload;
-            const existingItem = state.cartItems.find(x => x.id === item.id);
+            const existingItem = state.cartItems.find((x) => x._id === item._id);
 
             // Ensure price and qty are numbers
-            item.price = parseFloat(item.price);
-            item.qty = parseInt(item.qty, 10);
+
 
             if (existingItem) {
-                existingItem.qty += item.qty;
+                state.cartItems = state.cartItems.map(x => x._id === existingItem._id ? item : x);
             } else {
-                state.cartItems.push(item);
+                state.cartItems = [...state.cartItems, item];
             }
 
           //debugging
-            console.log('Cart Items:', state.cartItems);
-            console.log('Item Price:', item.price);
-            console.log('Item Quantity:', item.qty);
+         
             return updateCart(state);
 
         },
+        removeFromCart: (state, action) => {
+            state.cartItems = state.cartItems.filter((x) => x._id !== action.payload);
+            return updateCart(state);
+
+            
+        }
     },
 });
 
-export const { addToCart } = cartSlice.actions;
+export const { addToCart, removeFromCart } = cartSlice.actions;
 
 export default cartSlice.reducer;

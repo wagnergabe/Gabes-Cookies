@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import HomeScreen from './screens/HomeScreen';
 import CookieScreen from './screens/CookieScreen';
+import CartScreen from './screens/CartScreen';
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -20,6 +21,7 @@ const router= createBrowserRouter(
     <Route path="/" element={<App />} >
     <Route path='/' index={true} element={<HomeScreen />} />
     <Route path='/cookie/:id' element={<CookieScreen />} />
+    <Route path='/cart' element={<CartScreen />} />
     </Route>
   )
 )
