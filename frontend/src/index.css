@@ -62,3 +62,10 @@ main {
     border-radius: 5px;
     background-color: white;
   }
+
+  .fixed-image {
+    width: 100px;   
+    height: 100px;  
+    object-fit: cover; 
+    border-radius: 5px; 
+  }

@@ -77,11 +77,10 @@ const PlaceOrderScreen = () => {
                           <Image
                             src={item.image}
                             alt={item.name}
-                            fluid
-                            rounded
+                            className="fixed-image"
                           />
                         </Col>
-                        <Col>
+                        <Col className="mx-3">
                           <Link to={`/cookie/${item._id}`}>{item.name}</Link>
                         </Col>
                         <Col md={4}>
@@ -140,7 +139,7 @@ const PlaceOrderScreen = () => {
                   disabled={cart.cartItems === 0}
                   onClick={placeOrderHandler}
                 >
-                  Place Order
+                  Continue to place order
                 </Button>
                 {isLoading && <Loader />}
               </ListGroup.Item>
