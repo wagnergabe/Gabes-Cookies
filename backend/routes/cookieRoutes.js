@@ -1,9 +1,11 @@
 import express from 'express';
 const router = express.Router();
-import { getCookies, getCookieById } from '../controllers/cookieController.js';
+import { getCookies, getCookieById, createCookie, updateCookie } from '../controllers/cookieController.js';
+import { protect, admin } from '../middleware/authMiddleware.js';
 
-router.route('/').get(getCookies);
-router.route('/:id').get(getCookieById);
+router.route('/').get(getCookies).post(protect, admin, createCookie);
+router.route('/:id').get(getCookieById).put(protect, admin, updateCookie);
+
 
 export default router;
   

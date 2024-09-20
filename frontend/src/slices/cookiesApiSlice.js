@@ -7,6 +7,7 @@ export const cookiesApiSlice = apiSlice.injectEndpoints({
             query: () => ({
                 url: COOKIES_URL,
             }),
+            providesTags: ['Cookies'],
             keepUnusedDataFor: 5,
         }),
         getCookieDetails: builder.query({
@@ -15,8 +16,23 @@ export const cookiesApiSlice = apiSlice.injectEndpoints({
         }),
             keepUnusedDataFor: 5,
         }),
+        createCookie: builder.mutation({
+            query: () => ({
+                url: COOKIES_URL,
+                method: 'POST',
+            }),
+            invalidatesTags: ['Cookie'],
+        }),
+        updateCookie: builder.mutation({
+            query: ( data ) => ({
+                url: `${COOKIES_URL}/${data.cookieId}`,
+                method: 'PUT',
+                body: data,
+            }),
+            invalidatesTags: ['Cookies'],
+        }),
     }),
 });
 
 
-export const { useGetCookiesQuery, useGetCookieDetailsQuery } = cookiesApiSlice;
+export const { useGetCookiesQuery, useGetCookieDetailsQuery, useCreateCookieMutation, useUpdateCookieMutation } = cookiesApiSlice;

@@ -2,7 +2,7 @@ import { Link, useParams } from 'react-router-dom';
 import { Row, Col, ListGroup, Image, Card, Button } from 'react-bootstrap';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import { useGetOrderDetailsQuery, usePayOrderMutation, useGetPayPalClientIdQuery } from '../slices/ordersApiSlice';
+import { useGetOrderDetailsQuery, usePayOrderMutation, useGetPayPalClientIdQuery, useDeliverOrderMutation } from '../slices/ordersApiSlice';
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
@@ -15,6 +15,8 @@ const OrderScreen = () => {
 const [payOrder, { isLoading:loadingPay}] = usePayOrderMutation();
 
 const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
+
+const [deliverOrder, {isLoading: loadingDeliver}] = useDeliverOrderMutation();
 
 const { data: paypal, isLoading: loadingPayPal, error: errorPayPal } = useGetPayPalClientIdQuery();
 
@@ -76,6 +78,16 @@ useEffect(() => {
     })
   }
 
+  const deliverOrderHandler = async () => {
+    try {
+        await deliverOrder(orderId);
+        refetch();
+        toast.success('Order is delivered');
+    } catch (error) {
+        toast.error(error?.data?.message || error.message);
+    }
+    }
+
   return isLoading ? <Loader /> : error ? <Message variant = 'danger'>{error}</Message> : (
     <>
     <h1>Order {order._id}</h1>
@@ -90,7 +102,7 @@ useEffect(() => {
                     <strong>Shipping Address: </strong>
                     {order.shippingAddress.address}, {order.shippingAddress.city}, {order.shippingAddress.postalCode}, {order.shippingAddress.country}
                 </p>
-                {order.isDelivered ? <Message variant='success'>Delivered on {order.deliveredAt}</Message> : <Message variant='danger'>Not Delivered</Message>}
+                {order.isDelivered ? <Message variant='success'>Shipped {order.deliveredAt}</Message> : <Message variant='danger'>Not Delivered</Message>}
             </ListGroup.Item>
 
             <ListGroup.Item>
@@ -107,7 +119,7 @@ useEffect(() => {
                             <ListGroup.Item key={index}>
                                 <Row>
                                     <Col md={2}>
-                                        <Image src={item.image} alt={item.name} fluid rounded />
+                                        <Image src={item.image} alt={item.name} className="fixed-image" />
                                     </Col>
                                     <Col>
                                         <Link to={`/cookie/${item.cookie}`}>{item.name}</Link>
@@ -168,6 +180,12 @@ useEffect(() => {
                                 </div>
                             </div>
                         )}
+                    </ListGroup.Item>
+                )}
+                { loadingDeliver && <Loader /> }
+                { userInfo && userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+                    <ListGroup.Item>
+                        <Button type='button' className='btn btn-block' onClick={() => deliverOrderHandler(order._id)}>Mark as Shipped</Button>
                     </ListGroup.Item>
                 )}
                 </ListGroup>
