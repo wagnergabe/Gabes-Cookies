@@ -1,4 +1,4 @@
-import { COOKIES_URL } from '../constants';
+import { COOKIES_URL, UPLOAD_URL } from '../constants';
 import { apiSlice } from './apiSlice';
 
 export const cookiesApiSlice = apiSlice.injectEndpoints({
@@ -31,8 +31,15 @@ export const cookiesApiSlice = apiSlice.injectEndpoints({
             }),
             invalidatesTags: ['Cookies'],
         }),
+        uploadCookieImage: builder.mutation({
+            query: (data) => ({
+                url: `${UPLOAD_URL}`,
+                method: 'POST',
+                body: data,
+            }),
+        })
     }),
 });
 
 
-export const { useGetCookiesQuery, useGetCookieDetailsQuery, useCreateCookieMutation, useUpdateCookieMutation } = cookiesApiSlice;
+export const { useGetCookiesQuery, useGetCookieDetailsQuery, useCreateCookieMutation, useUpdateCookieMutation, useUploadCookieImageMutation } = cookiesApiSlice;

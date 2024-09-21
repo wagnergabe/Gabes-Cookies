@@ -5,7 +5,7 @@ import { toast } from 'react-toastify'
 import Message from '../../components/Message'
 import Loader from '../../components/Loader'
 import FormContainer from '../../components/FormContainer'
-import { useGetCookieDetailsQuery, useUpdateCookieMutation } from '../../slices/cookiesApiSlice'
+import { useGetCookieDetailsQuery, useUpdateCookieMutation, useUploadCookieImageMutation } from '../../slices/cookiesApiSlice'
 
 const CookieEditScreen = () => {
 
@@ -20,6 +20,7 @@ const CookieEditScreen = () => {
     const { data: cookie, error, isLoading, refetch } = useGetCookieDetailsQuery(cookieId)
     
     const [updateCookie, { isLoading: loadingUpdate }] = useUpdateCookieMutation()
+    const [uploadCookieImage, { isLoading: loadingUpload}] = useUploadCookieImageMutation()
 
     const navigate = useNavigate()
 
@@ -51,6 +52,19 @@ const CookieEditScreen = () => {
         toast.success('Cookie updated')
         navigate('/admin/cookielist')
     }
+    }
+
+    const uploadFileHandler = async (e) => {
+        const formData = new FormData()
+        formData.append('image', e.target.files[0])
+        try {
+            const res = await uploadCookieImage(formData).unwrap()
+            toast.success(res.message);
+            setImage(res.image)
+        } catch (error) {
+            toast.error(error?.data?.message || error.message);
+        }
+    // console.log(e.target.files[0])
     }
 
     return (
@@ -106,6 +120,18 @@ const CookieEditScreen = () => {
                                 value={countInStock}
                                 onChange={(e) => setCountInStock(e.target.value)}
                             />
+                        </Form.Group>
+
+                        <Form.Group controlId='image' className="my-2">
+                            <Form.Label>Image</Form.Label>
+                            <Form.Control
+                                type='text'
+                                placeholder='Enter image URL'
+                                value={image}
+                                onChange={setImage}>
+                            </Form.Control>
+                            <Form.Control type ="file" label="Choose file" onChange={uploadFileHandler}>
+                            </Form.Control>
                         </Form.Group>
                     <Button 
                     type='submit'
