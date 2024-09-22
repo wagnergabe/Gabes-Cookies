@@ -1,9 +1,9 @@
 import { LinkContainer } from "react-router-bootstrap";
 import { Table, Button, Row, Col } from "react-bootstrap";
-import { FaTimesCircle, FaEdit, FaTrash } from "react-icons/fa";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
-import { useGetCookiesQuery, useCreateCookieMutation } from "../../slices/cookiesApiSlice";
+import { useGetCookiesQuery, useCreateCookieMutation, useDeleteCookieMutation } from "../../slices/cookiesApiSlice";
 import { toast } from "react-toastify"
 
 
@@ -14,10 +14,18 @@ const CookieListScreen = () => {
 
     const [createCookie, { isloading: loadingCreate }] = useCreateCookieMutation();
 
+    const [deleteCookie, { isLoading: loadingDelete }] = useDeleteCookieMutation();
+
     // console.log(cookies)
-    const deleteHandler = (id) => {
+    const deleteHandler = async(id) => {
         if (window.confirm('Are you sure?')) {
-            // DELETE COOKIE
+            try {
+                await deleteCookie(id);
+                toast.success('Cookie gone')
+                refetch()
+            } catch (error) {
+                toast.error(error?.data?.message || error.message)
+            }
         }
     }
 
@@ -26,6 +34,7 @@ const CookieListScreen = () => {
             try {
                 await createCookie();
                 refetch()
+               
             } catch (error) {
                 toast.error(error?.data?.message || error.message)
             }
@@ -45,6 +54,7 @@ const CookieListScreen = () => {
     </Col>
     </Row>
     {loadingCreate && <Loader />}
+    {loadingDelete && <Loader />}
     {isLoading ? ( <Loader /> ) : error ? ( <Message variant='danger'>{error}</Message> ) : ( 
         <>
         <Table hover striped responsive className='table-sm'>

@@ -37,9 +37,15 @@ export const cookiesApiSlice = apiSlice.injectEndpoints({
                 method: 'POST',
                 body: data,
             }),
-        })
+        }),
+        deleteCookie: builder.mutation({
+            query: (id) => ({
+                url: `${COOKIES_URL}/${id}`,
+                method: 'DELETE',
+            }),
+        }),
     }),
 });
 
 
-export const { useGetCookiesQuery, useGetCookieDetailsQuery, useCreateCookieMutation, useUpdateCookieMutation, useUploadCookieImageMutation } = cookiesApiSlice;
+export const { useGetCookiesQuery, useGetCookieDetailsQuery, useCreateCookieMutation, useUpdateCookieMutation, useUploadCookieImageMutation, useDeleteCookieMutation } = cookiesApiSlice;

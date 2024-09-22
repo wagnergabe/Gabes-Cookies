@@ -52,4 +52,18 @@ const updateCookie = asyncHandler(async (req, res) => {
     }
 });
 
-export { getCookies, getCookieById, createCookie, updateCookie };
+const deleteCookie = asyncHandler(async (req, res) => {
+
+    const cookie = await Cookie.findById(req.params.id);
+
+    if (cookie) {
+        await Cookie.deleteOne({_id: cookie._id});
+        res.status(200).json({ message: 'Cookie removed' });
+    } else {
+        res.status(404);
+        throw new Error('Cookie not found');
+    }
+});
+
+
+export { getCookies, getCookieById, createCookie, updateCookie, deleteCookie };

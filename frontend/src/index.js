@@ -20,6 +20,8 @@ import ProfileScreen from './screens/ProfileScreen';
 import OrderListScreen from './screens/admin/OrderListScreen';
 import CookieListScreen from './screens/admin/CookieListScreen';
 import CookieEditScreen from './screens/admin/CookieEditScreen';
+import UserListScreen from './screens/admin/UserListScreen';
+import UserEditScreen from './screens/admin/UserEditScreen';
 
 import {
   createBrowserRouter,
@@ -52,6 +54,8 @@ const router = createBrowserRouter(
         <Route path="/admin/orderlist" element={<OrderListScreen />} />
         <Route path="/admin/cookielist" element={<CookieListScreen />} />
         <Route path="/admin/cookie/:id/edit" element={<CookieEditScreen />} />
+        <Route path="/admin/userlist" element={<UserListScreen />} />
+        <Route path="/admin/user/:id/edit" element={<UserEditScreen />} />
       </Route>
     </Route>
   )
