@@ -5,6 +5,9 @@ import { useGetCookiesQuery } from "../slices/cookiesApiSlice.js";
 import Loader from "../components/Loader.jsx";
 import Message from "../components/Message.jsx";
 import Paginate from "../components/Paginate.jsx";
+import Meta from "../components/Meta"
+import logo from '../assets/logo.png'
+
 
 const HomeScreen = () => {
   const { pageNumber } = useParams();
@@ -18,16 +21,24 @@ const HomeScreen = () => {
         <Message variant="danger">{error?.data.message || error.error}</Message>
       ) : (
         <>
-          {" "}
-          <h1>Fresh Cookies</h1>
-          <Row>
-            {data.cookies.map((cookie) => (
-              <Col key={cookie._id} sm={12} md={6} lg={4} xl={3}>
-                <Cookie cookie={cookie} />
-              </Col>
-            ))}
-          </Row>
-          <Paginate pages = {data.pages} page = {data.page} />
+      <Meta title="Welcome to my Cookie Shop" description="Homemade cookies for everyone" />
+
+<Row className="justify-content-center mb-4">
+  <Col xs="auto">
+    <img src={logo} alt="logo" width="300" className="rounded" />
+  </Col>
+</Row>
+
+<h1>Fresh Cookies</h1>
+<Row>
+  {data.cookies.map((cookie) => (
+    <Col className="d-flex justify-content-center" key={cookie._id} sm={12} md={6} lg={4} xl={3}>
+      <Cookie cookie={cookie} />
+    </Col>
+  ))}
+</Row>
+<Paginate pages={data.pages} page={data.page} />
+
         </>
       )}
     </>

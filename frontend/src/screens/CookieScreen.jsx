@@ -13,6 +13,7 @@ import {
 import Rating from "../components/Rating";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
+import Meta from '../components/Meta';
 import { useDispatch, useSelector } from "react-redux";
 import {
   useGetCookieDetailsQuery,
@@ -73,6 +74,7 @@ const CookieScreen = () => {
         <Message variant="danger">{error?.data.message || error.error}</Message>
       ) : (
         <>
+          <Meta title={cookie.name} />
           <Row>
             <Col md={3}>
               <Image

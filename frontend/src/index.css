@@ -1,6 +1,5 @@
 main {
     min-height: 70vh;
-    min-width: 80vh;
     background-color: #FFE8A1;
 }
 
@@ -69,3 +68,4 @@ main {
     object-fit: cover; 
     border-radius: 5px; 
   }
+

@@ -2,11 +2,13 @@ import asyncHandler from "../middleware/asyncHandler.js";
 import Cookie from "../models/cookieModel.js";
 
 const getCookies = asyncHandler(async (req, res) => {
-    const pageSize = 3;
-    const page = Number(req.query.pageNumber) || 1;
-    const count = await Cookie.countDocuments();
-  const cookies = await Cookie.find({}).limit(pageSize).skip(pageSize * (page - 1));
-  res.json({ cookies, page, pages: Math.ceil(count / pageSize)});
+  const pageSize = 4;
+  const page = Number(req.query.pageNumber) || 1;
+  const count = await Cookie.countDocuments();
+  const cookies = await Cookie.find({})
+    .limit(pageSize)
+    .skip(pageSize * (page - 1));
+  res.json({ cookies, page, pages: Math.ceil(count / pageSize) });
 });
 
 const getCookieById = asyncHandler(async (req, res) => {
@@ -104,4 +106,18 @@ const createCookieReview = asyncHandler(async (req, res) => {
   }
 });
 
-export { getCookies, getCookieById, createCookie, updateCookie, deleteCookie, createCookieReview };
+const getTopCookies = asyncHandler(async (req, res) => {
+  const cookie = await Cookie.findById({}).sort({ rating: -1 }).limit(3);
+
+  return res.stats(200).json(cookie);
+});
+
+export {
+  getCookies,
+  getCookieById,
+  createCookie,
+  updateCookie,
+  deleteCookie,
+  createCookieReview,
+  getTopCookies,
+};

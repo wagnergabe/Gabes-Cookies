@@ -54,11 +54,11 @@ useEffect(() => {
 
   }
 
-  const onApproveTest = async() => {
-    await payOrder({orderId, details: { payer: {}}});
-    refetch();
-    toast.success('Order is paid');
-  }
+//   const onApproveTest = async() => {
+//     await payOrder({orderId, details: { payer: {}}});
+//     refetch();
+//     toast.success('Order is paid');
+//   }
 
   const onError = (err) => {
     toast.error(err.message);

@@ -50,6 +50,7 @@ const CookieEditScreen = () => {
         toast.error(result.error.message)
     } else {
         toast.success('Cookie updated')
+        refetch()
         navigate('/admin/cookielist')
     }
     }
@@ -133,6 +134,7 @@ const CookieEditScreen = () => {
                             <Form.Control type ="file" label="Choose file" onChange={uploadFileHandler}>
                             </Form.Control>
                         </Form.Group>
+                        {loadingUpload && <Loader />}
                     <Button 
                     type='submit'
                     variant='primary'
