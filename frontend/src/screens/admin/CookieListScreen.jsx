@@ -1,16 +1,21 @@
 import { LinkContainer } from "react-router-bootstrap";
 import { Table, Button, Row, Col } from "react-bootstrap";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import { useParams } from "react-router-dom";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
+import Paginate from '../../components/Paginate';
 import { useGetCookiesQuery, useCreateCookieMutation, useDeleteCookieMutation } from "../../slices/cookiesApiSlice";
 import { toast } from "react-toastify"
 
 
 
+
 const CookieListScreen = () => {
 
-    const { data: cookies, error, isLoading, refetch } = useGetCookiesQuery();
+    const { pageNumber } = useParams();
+
+    const { data, error, isLoading, refetch } = useGetCookiesQuery({ pageNumber});
 
     const [createCookie, { isloading: loadingCreate }] = useCreateCookieMutation();
 
@@ -55,7 +60,7 @@ const CookieListScreen = () => {
     </Row>
     {loadingCreate && <Loader />}
     {loadingDelete && <Loader />}
-    {isLoading ? ( <Loader /> ) : error ? ( <Message variant='danger'>{error}</Message> ) : ( 
+    {isLoading ? ( <Loader /> ) : error ? ( <Message variant='danger'>{error?.data?.message || error.message}</Message> ) : ( 
         <>
         <Table hover striped responsive className='table-sm'>
             <thead>
@@ -67,7 +72,7 @@ const CookieListScreen = () => {
                 </tr>
             </thead>
             <tbody>
-                {cookies.map((cookie) => (
+                {data.cookies.map((cookie) => (
                     <tr key={cookie._id}>
                         <td>{cookie._id}</td>
                         <td>{cookie.name}</td>
@@ -86,6 +91,7 @@ const CookieListScreen = () => {
                 ))}
             </tbody>
         </Table>
+        <Paginate pages={data.pages} page={data.page} isAdmin={true} />
         </>
     )}
     </>

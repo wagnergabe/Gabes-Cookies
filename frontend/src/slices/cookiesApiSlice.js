@@ -4,8 +4,9 @@ import { apiSlice } from './apiSlice';
 export const cookiesApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getCookies: builder.query({
-            query: () => ({
+            query: ( pageNumber ) => ({
                 url: COOKIES_URL,
+                params: pageNumber,
             }),
             providesTags: ['Cookies'],
             keepUnusedDataFor: 5,
@@ -44,8 +45,16 @@ export const cookiesApiSlice = apiSlice.injectEndpoints({
                 method: 'DELETE',
             }),
         }),
+        createReview: builder.mutation({
+            query: (data) => ({
+                url: `${COOKIES_URL}/${data.cookieId}/reviews`,
+                method: 'POST',
+                body: data,
+            }),
+            invalidatesTags: ['Cookie'],
+        }),
     }),
 });
 
 
-export const { useGetCookiesQuery, useGetCookieDetailsQuery, useCreateCookieMutation, useUpdateCookieMutation, useUploadCookieImageMutation, useDeleteCookieMutation } = cookiesApiSlice;
+export const { useGetCookiesQuery, useGetCookieDetailsQuery, useCreateCookieMutation, useUpdateCookieMutation, useUploadCookieImageMutation, useDeleteCookieMutation, useCreateReviewMutation } = cookiesApiSlice;
