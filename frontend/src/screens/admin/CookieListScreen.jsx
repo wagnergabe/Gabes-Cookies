@@ -60,7 +60,7 @@ const CookieListScreen = () => {
     </Row>
     {loadingCreate && <Loader />}
     {loadingDelete && <Loader />}
-    {isLoading ? ( <Loader /> ) : error ? ( <Message variant='danger'>{error?.data?.message || error.message}</Message> ) : ( 
+    {isLoading ? ( <Loader /> ) : error ? ( <Message variant='danger'>{error?.data?.message}</Message> ) : ( 
         <>
         <Table hover striped responsive className='table-sm'>
             <thead>
