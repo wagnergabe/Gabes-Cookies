@@ -44,7 +44,7 @@ useEffect(() => {
     const onApprove = (data, actions) => {
         return actions.order.capture().then(async function (details) {
             try {
-                await payOrder({orderId, details});
+                await payOrder({orderId, details}).unwrap();
                 refetch();
                 toast.success('Order is paid, cookies are on the way!');
             } catch (err) {
@@ -146,8 +146,8 @@ useEffect(() => {
 
                 <ListGroup.Item>
                     <Row>
-                        <Col>Items</Col>
-                        <Col>${order.itemPrice}</Col>
+                        <Col>Cookies</Col>
+                        <Col>{order.orderItems.length}</Col>
                     </Row>
 
                     <Row>

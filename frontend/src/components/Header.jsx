@@ -32,7 +32,7 @@ const Header = () => {
         <header>
         <Navbar  expand="lg" collapseOnSelect>
             <Container>
-                <LinkContainer to="/"><Navbar.Brand>Gabe's Cookies</Navbar.Brand></LinkContainer>
+                <LinkContainer to="/"><h1 style={{ color: 'blue' }}>Gabe's Cookies</h1></LinkContainer>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="ms-auto">

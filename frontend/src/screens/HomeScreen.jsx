@@ -23,13 +23,12 @@ const HomeScreen = () => {
         <>
       <Meta title="Welcome to my Cookie Shop" description="Homemade cookies for everyone" />
 
-<Row className="justify-content-center mb-4">
+<Row className="justify-content-center">
   <Col xs="auto">
     <img src={logo} alt="logo" width="300" className="rounded" />
   </Col>
 </Row>
-
-<h1>Fresh Cookies</h1>
+<h2>Current Cookies</h2>
 <Row>
   {data.cookies.map((cookie) => (
     <Col className="d-flex justify-content-center" key={cookie._id} sm={12} md={6} lg={4} xl={3}>
